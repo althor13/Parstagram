@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +33,16 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.etUsername);
         final EditText passwordEditText = findViewById(R.id.etPassword);
         final Button loginButton = findViewById(R.id.btnLogin);
+        final Button SignUpButton = findViewById(R.id.btnSignup);
+
+        SignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                SignUp(username, password);
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +51,22 @@ public class LoginActivity extends AppCompatActivity {
                 String user = usernameEditText.getText().toString();
                 String pass = passwordEditText.getText().toString();
                 loginUser(user, pass);
+            }
+        });
+    }
+
+    private void SignUp(String username, String password) {
+        ParseUser user = new ParseUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Unable to signup", e);
+                    return;
+                }
+                goMainActivity();
             }
         });
     }
