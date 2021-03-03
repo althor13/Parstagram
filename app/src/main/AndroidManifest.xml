@@ -19,7 +19,8 @@
         android:label="Instagram"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Parstagram">
+        android:theme="@style/Theme.Parstagram"
+        android:usesCleartextTraffic="true">
 
         <provider
             android:authorities="com.codepath.fileprovider"
